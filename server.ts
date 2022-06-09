@@ -3,11 +3,11 @@ import http, { IncomingMessage, ServerResponse } from "http";
 const hostName: string = "127.0.0.1";
 const port: number = 3000;
 
-http
+export let server = http
   .createServer((req: IncomingMessage, res: ServerResponse) => {
       if(req.method == "GET")
       {
-        res.end('GET')
+        res.end(`GET\n  ${process.pid}`);
         console.log(req.method);
       }
       if(req.method == "POST")
@@ -26,5 +26,7 @@ http
         console.log(req.method);
       }
 
-  })
-  .listen(port,hostName);
+  }).listen(port,hostName,()=>{
+    console.log('started')
+  });
+
