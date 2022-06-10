@@ -10,7 +10,7 @@ let Users: User[] = [
     id: "1",
     username: "Vadim",
     age: 23,
-    hobbies: ["sportt", "videogames"],
+    hobbies: ["sport", "videogames"],
   },
   {
     id: "2",
@@ -20,7 +20,19 @@ let Users: User[] = [
   },
 ];
 
-export let UserController = {
+export const UserController = {
   readAll: () => Users,
   readId: (id: string) => Users.find((item: User) => item.id === id),
+  deleteuser: (id: string) => (Users = Users.filter((item) => item.id !== id)),
+  addNewuser: ({ username, age, hobbies }: User) => {
+    if (username && age && hobbies) {
+      Users.push({
+        id: (+Users[Users.length - 1].id + 1).toString(),
+        username: username,
+        age: age,
+        hobbies: hobbies,
+      });
+      return Users[Users.length - 1];
+    } else return false;
+  },
 };
