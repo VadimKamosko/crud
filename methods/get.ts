@@ -4,14 +4,14 @@ import { BadRequest, NotFound, returnId, urlId, urlWithoutId } from "./status";
 
 export function Getmethode(req: IncomingMessage, res: ServerResponse) {
   !req.url && (req.url = "/");
-  if (req.url == urlWithoutId) {
+  if (req.url == urlWithoutId || req.url == urlWithoutId + "/") {
     res.statusCode = 200;
     res.end(JSON.stringify(UserContrl.readAll()));
     return;
   }
 
   if (urlId.test(req.url)) {
-    let id: string = returnId(req);
+    const id: string = returnId(req);
     if (!UserContrl.chechId(id)) {
       BadRequest(res);
       return;

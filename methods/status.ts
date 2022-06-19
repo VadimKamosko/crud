@@ -5,12 +5,15 @@ export const urlWithoutId = "/api/users";
 
 export function NotFound(res: ServerResponse) {
   res.statusCode = 404;
-  res.end("Not Found");
+  res.end(JSON.stringify({ message: "Not Found" }));
 }
 
-export function BadRequest(res: ServerResponse, text: string = "Invalid userID") {
+export function BadRequest(
+  res: ServerResponse,
+  text: string = "Invalid userID"
+) {
   res.statusCode = 400;
-  res.end(text);
+  res.end(JSON.stringify({ message: text }));
 }
 
 export function returnId(req: IncomingMessage) {
@@ -21,7 +24,7 @@ export function returnId(req: IncomingMessage) {
 
 export function Servererror(res: ServerResponse) {
   res.statusCode = 500;
-  res.end("Something went wrong");
+  res.end(JSON.stringify({ message: "Something went wrong" }));
 }
 
 export function isJsonString(str: string) {

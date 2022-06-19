@@ -5,7 +5,7 @@ import { BadRequest, NotFound, returnId, urlId } from "./status";
 export function getDeletemethode(req: IncomingMessage, res: ServerResponse) {
   !req.url && (req.url = "/");
   if (urlId.test(req.url)) {
-    let id: string = returnId(req);
+    const id: string = returnId(req);
     if (!UserContrl.chechId(id)) {
       BadRequest(res);
       return;
