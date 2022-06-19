@@ -1,9 +1,7 @@
 import chai from "chai";
-import  http  from "http";
+import http from "http";
 
-
-
-export function APIScenario(expect: Chai.ExpectStatic, server:http.Server) {
+export function APIScenario(expect: Chai.ExpectStatic, server: http.Server) {
   let id: string;
   it("should get empty massive", (done) => {
     chai
@@ -94,7 +92,7 @@ export function APIScenario(expect: Chai.ExpectStatic, server:http.Server) {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(404);
-        expect(res.text).to.equal("Not Found");
+        expect(JSON.parse(res.text).message).to.equal("Not Found");
         done();
       });
   });

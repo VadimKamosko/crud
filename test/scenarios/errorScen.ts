@@ -1,9 +1,7 @@
 import chai from "chai";
-import  http  from "http";
+import http from "http";
 
-
-
-export function errorScen(expect:Chai.ExpectStatic,server:http.Server) {
+export function errorScen(expect: Chai.ExpectStatic, server: http.Server) {
   let id: string;
   it("should create user", (done) => {
     chai
@@ -26,6 +24,22 @@ export function errorScen(expect:Chai.ExpectStatic,server:http.Server) {
         done();
       });
   });
+  it("shouldn't add user without required fields", (done) => {
+    chai
+      .request(server)
+      .post("/api/users")
+      .send({
+        username: "Second user",
+        age: 19,
+      })
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(400);
+        expect(JSON.parse(res.text).message).to.equal("Does not contain required fields");
+
+        done();
+      });
+  });
   it("shouldn't get user with invalid userid", (done) => {
     chai
       .request(server)
@@ -33,7 +47,7 @@ export function errorScen(expect:Chai.ExpectStatic,server:http.Server) {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(400);
-        expect(res.text).to.equal("Invalid userID");
+        expect(JSON.parse(res.text).message).to.equal("Invalid userID");
         done();
       });
   });
@@ -47,8 +61,8 @@ export function errorScen(expect:Chai.ExpectStatic,server:http.Server) {
       })
       .end((err, res) => {
         expect(err).to.be.null;
-        expect(res).to.have.status(400);
-        expect(res.text).to.equal("Invalid userID");
+        expect(res).to.have.status(400);        
+        expect(JSON.parse(res.text).message).to.equal("Invalid userID");
 
         done();
       });
@@ -60,7 +74,7 @@ export function errorScen(expect:Chai.ExpectStatic,server:http.Server) {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(400);
-        expect(res.text).to.equal("Invalid userID");
+        expect(JSON.parse(res.text).message).to.equal("Invalid userID");
 
         done();
       });
@@ -83,7 +97,7 @@ export function errorScen(expect:Chai.ExpectStatic,server:http.Server) {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(404);
-        expect(res.text).to.equal("Not Found");
+        expect(JSON.parse(res.text).message).to.equal("Not Found");
 
         done();
       });
@@ -99,7 +113,7 @@ export function errorScen(expect:Chai.ExpectStatic,server:http.Server) {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(404);
-        expect(res.text).to.equal("Not Found");
+        expect(JSON.parse(res.text).message).to.equal("Not Found");
 
         done();
       });

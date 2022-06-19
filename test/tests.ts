@@ -9,13 +9,13 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe("Users API", () => {
-  APIScenario(expect,server)
+  APIScenario(expect, server);
 });
 
 describe("test multiple", () => {
-  multipleScen(expect,server);
+  multipleScen(expect, server);
 });
 
-describe("third scenario", () => {
-  errorScen(expect,server);
+describe("check errors", () => {
+  errorScen(expect, server);
 });
