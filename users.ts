@@ -1,3 +1,4 @@
+import { v4 as uuidv4, validate as uuidValidate } from "uuid";
 export interface User {
   id: string;
   username: string;
@@ -5,29 +6,16 @@ export interface User {
   hobbies: string[];
 }
 
-let Users: User[] = [
-  // {
-  //   id: "1",
-  //   username: "Vadim",
-  //   age: 23,
-  //   hobbies: ["sport", "videogames"],
-  // },
-  // {
-  //   id: "2",
-  //   username: "Artyom",
-  //   age: 23,
-  //   hobbies: ["dispute", "WOT"],
-  // },
-];
+let Users: User[] = [];
 
 export const UserController = {
   readAll: () => Users,
   readId: (id: string) => Users.find((item: User) => item.id === id),
   deleteuser: (id: string) => (Users = Users.filter((item) => item.id !== id)),
-  addNewuser: ({ username, age, hobbies }: User) => {
+  addNewuser: ({ username, age, hobbies }: User) => {   
     if (username && age && hobbies) {
       Users.push({
-        id: Users.length ? (+Users[Users.length - 1].id + 1).toString() : "1",
+        id: uuidv4(),
         username: username,
         age: age,
         hobbies: hobbies,
@@ -45,4 +33,5 @@ export const UserController = {
       return item;
     });
   },
+  chechId: (id: string) => uuidValidate(id),
 };
